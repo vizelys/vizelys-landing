@@ -49,7 +49,7 @@ export default function Footer() {
                 <a href="#contact">Prendre rendez-vous</a>
               </li>
               <li>
-                <a href="mailto:contact@vizelys.fr">contact@vizelys.fr</a>
+                <a href="mailto:vizelys@proton.me">vizelys@proton.me</a>
               </li>
               <li>
                 <a href="#contact">Demander un devis</a>
@@ -59,7 +59,11 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <span>© 2026 Vizelys — Refonte web &amp; référencement local.</span>
-          <span>Mentions légales · Confidentialité</span>
+          <span>
+            <a href="/mentions-legales">Mentions légales</a>
+            {' · '}
+            <a href="/politique-de-confidentialite">Confidentialité</a>
+          </span>
         </div>
       </div>
     </footer>

@@ -8,10 +8,33 @@ import { VIZ } from '@/lib/data'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    setSent(true)
+    setLoading(true)
+    setError(null)
+    const fd = new FormData(e.target)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:     fd.get('name'),
+          email:    fd.get('email'),
+          tel:      fd.get('tel'),
+          activite: fd.get('activite'),
+          message:  fd.get('message'),
+        }),
+      })
+      if (!res.ok) throw new Error()
+      setSent(true)
+    } catch {
+      setError('Une erreur est survenue. Écrivez-nous à vizelys@proton.me')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -50,42 +73,43 @@ export default function Contact() {
                 <form onSubmit={handleSubmit}>
                   <div className="field">
                     <label htmlFor="name">Votre nom</label>
-                    <input id="name" type="text" placeholder="Prénom Nom" required />
+                    <input id="name" name="name" type="text" placeholder="Prénom Nom" required />
                   </div>
                   <div className="field">
                     <label htmlFor="activite">Votre activité</label>
-                    <select id="activite" required>
-                      <option value="">Sélectionnez votre secteur</option>
-                      <option>Artisan & bâtiment</option>
+                    <select id="activite" name="activite" required defaultValue="">
+                      <option value="" disabled>Sélectionnez votre secteur</option>
+                      <option>Artisanat / bâtiment</option>
                       <option>Service local</option>
                       <option>Commerce spécialisé</option>
-                      <option>Cabinet & indépendant</option>
-                      <option>TPE / PME locale</option>
-                      <option>Activité sur rendez-vous</option>
+                      <option>Cabinet / indépendant</option>
+                      <option>TPE / PME</option>
                       <option>Autre</option>
                     </select>
                   </div>
                   <div className="field-row">
                     <div className="field">
                       <label htmlFor="email">Email</label>
-                      <input id="email" type="email" placeholder="vous@exemple.fr" required />
+                      <input id="email" name="email" type="email" placeholder="vous@exemple.fr" required />
                     </div>
                     <div className="field">
                       <label htmlFor="tel">Téléphone</label>
-                      <input id="tel" type="tel" placeholder="06 xx xx xx xx" />
+                      <input id="tel" name="tel" type="tel" placeholder="06 xx xx xx xx" />
                     </div>
                   </div>
                   <div className="field">
                     <label htmlFor="message">Votre projet</label>
                     <textarea
                       id="message"
+                      name="message"
                       placeholder="Décrivez votre activité et ce que vous souhaitez améliorer…"
                       rows={4}
                     />
                   </div>
-                  <button type="submit" className="btn btn-primary">
-                    Envoyer ma demande
-                    <Icon name="arrow" className="arr" style={{ width: 18, height: 18 }} />
+                  {error && <p className="form-note" style={{ color: 'var(--accent-text)', marginBottom: 8 }}>{error}</p>}
+                  <button type="submit" className="btn btn-primary" disabled={loading}>
+                    {loading ? 'Envoi en cours…' : 'Envoyer ma demande'}
+                    {!loading && <Icon name="arrow" className="arr" style={{ width: 18, height: 18 }} />}
                   </button>
                   <p className="form-note">
                     Réponse sous 24h · Aucun engagement
