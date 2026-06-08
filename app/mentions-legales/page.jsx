@@ -10,7 +10,7 @@ export default function MentionsLegales() {
         <span className="eyebrow">Légal</span>
         <h1 style={{ marginTop: 18, marginBottom: 48 }}>Mentions légales</h1>
 
-        <section className="legal-section">
+        {/* <section className="legal-section">
           <h2>1. Éditeur du site</h2>
           <p>
             Le site <strong>vizelys.fr</strong> est édité par :
@@ -23,7 +23,7 @@ export default function MentionsLegales() {
             <li><strong>Directeur de la publication :</strong> [À COMPLÉTER — nom du gérant]</li>
             <li><strong>Contact :</strong> <a href="mailto:vizelys@proton.me">vizelys@proton.me</a></li>
           </ul>
-        </section>
+        </section> */}
 
         <section className="legal-section">
           <h2>2. Hébergement</h2>
