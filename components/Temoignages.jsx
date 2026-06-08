@@ -4,6 +4,11 @@ import Reveal from './Reveal'
 import SectionHead from './SectionHead'
 import { VIZ } from '@/lib/data'
 
+function Avatar({ name = "" }) {
+  const initials = name.replace(/^(Dr|Me|M\.|Mme)\s+/i, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase()
+  return <div className="tm-avatar" aria-hidden="true">{initials}</div>
+}
+
 export default function Temoignages() {
   const { feature, cards } = VIZ.testimonials
 
@@ -20,7 +25,7 @@ export default function Temoignages() {
             <div className="quote-mark">&ldquo;</div>
             <blockquote>{feature.q}</blockquote>
             <div className="tm-author">
-              <div className="ph circle" style={{ width: 52, height: 52 }} />
+              <Avatar name={feature.name} />
               <div>
                 <b>{feature.name}</b>
                 <span>{feature.role}</span>
@@ -33,7 +38,7 @@ export default function Temoignages() {
             <Reveal className="tm-card" key={i} delay={i * 80}>
               <p>{card.q}</p>
               <div className="tm-author">
-                <div className="ph circle" style={{ width: 42, height: 42 }} />
+                <Avatar name={card.name} />
                 <div>
                   <b>{card.name}</b>
                   <span>{card.role}</span>
