@@ -72,6 +72,20 @@ CDI 2              →  15%  →  associé uniquement
 | Fondateur libre | ✅ Dès les premiers revenus | ✅ | Mensuel possible |
 | En CDI | ❌ Interdit (clause) | ✅ Argent réel sur compte | Fin d'exercice |
 
+> ⚠️ **Nuance importante** : les dividendes ne règlent pas automatiquement le problème de la clause d'exclusivité. La vraie distinction est **associé passif** (détient des parts, ne travaille pas sur Vizelys) vs **associé actif** (code, vend, fait du design, contacte des clients). Même sans salaire, une contribution active peut être considérée comme une activité annexe par votre employeur.
+
+### Ce qui est clairement safe pour les CDI
+- Détenir des parts sans rôle opérationnel
+- Toucher des dividendes en fin d'exercice
+- Participer aux décisions internes (sans contact client)
+
+### Ce qui est risqué même sans salaire
+- Coder, designer, ou vendre pour Vizelys
+- Apparaître sur des devis ou communications clients
+- Avoir une adresse @vizelys.fr
+
+**→ Faire relire les contrats avant tout** : chercher les mots *exclusivité, activité annexe, concurrence, confidentialité, intérêts directs ou indirects*.
+
 ---
 
 ## Checklist pour démarrer en SAS

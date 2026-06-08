@@ -1,7 +1,7 @@
 'use client'
 
 import Reveal from './Reveal'
-import SitePreview from './SitePreview'
+import { MockAfter } from './MockSite'
 import { Icon } from '@/lib/icons'
 
 function HeroTrust() {
@@ -59,7 +59,15 @@ export default function Hero() {
           </Reveal>
         </div>
         <Reveal className="hero-wide" delay={140}>
-          <SitePreview url="vizelys.fr/votre-activite" label="aperçu du site client" />
+          <div className="browser">
+            <div className="browser-bar">
+              <div className="browser-dots"><i /><i /><i /></div>
+              <div className="browser-url">maisonrenaud-annecy.fr</div>
+            </div>
+            <div className="browser-body">
+              <MockAfter />
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>

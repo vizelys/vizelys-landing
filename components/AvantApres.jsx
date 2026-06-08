@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Reveal from './Reveal'
 import SectionHead from './SectionHead'
-import SitePreview from './SitePreview'
+import { MockAfter, MockBefore } from './MockSite'
 import { Icon } from '@/lib/icons'
 import { VIZ } from '@/lib/data'
 
@@ -58,7 +58,15 @@ export default function AvantApres() {
             </div>
           </div>
           <div className="ba-visual">
-            <SitePreview url={data.url} label={data.label.toLowerCase()} />
+            <div className="browser">
+              <div className="browser-bar">
+                <div className="browser-dots"><i /><i /><i /></div>
+                <div className="browser-url">{data.url}</div>
+              </div>
+              <div className="browser-body">
+                {isAfter ? <MockAfter /> : <MockBefore />}
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>
