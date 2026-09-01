@@ -9,7 +9,6 @@ import Methode from './Methode'
 import Services from './Services'
 import AvantApres from './AvantApres'
 import PourQui from './PourQui'
-import Preuves from './Preuves'
 import Offres from './Offres'
 import FAQ from './FAQ'
 import Contact from './Contact'
@@ -64,7 +63,6 @@ export default function ThemeProvider() {
         <Services />
         <AvantApres />
         <PourQui />
-        <Preuves />
         <Offres />
         <FAQ />
         <Contact />
