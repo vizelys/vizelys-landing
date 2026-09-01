@@ -4,7 +4,7 @@ import BrandMark from './BrandMark'
 import { Icon } from '@/lib/icons'
 import { DC } from '@/lib/data'
 
-export default function Header({ theme, onToggleTheme, onOpenMenu, scrolled, palette, onTogglePalette }) {
+export default function Header({ theme, onToggleTheme, onOpenMenu, scrolled }) {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="wrap nav">
@@ -17,14 +17,6 @@ export default function Header({ theme, onToggleTheme, onOpenMenu, scrolled, pal
           ))}
         </nav>
         <div className="nav-actions">
-          <button
-            className="icon-btn"
-            onClick={onTogglePalette}
-            aria-label="Changer de palette"
-            title={palette === 'heritage' ? 'Palette Clarity (vert)' : 'Palette historique (navy/cyan)'}
-          >
-            <Icon name="palette" />
-          </button>
           <button className="icon-btn" onClick={onToggleTheme} aria-label="Changer de thème">
             <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
           </button>

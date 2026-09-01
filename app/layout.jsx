@@ -38,8 +38,6 @@ export default function RootLayout({ children }) {
             __html: `(function(){try{
               var th=localStorage.getItem('vz-theme')||'light';
               document.documentElement.setAttribute('data-theme',th);
-              var pa=localStorage.getItem('vz-palette');
-              if(pa==='heritage')document.documentElement.setAttribute('data-palette','heritage');
             }catch(e){}})();`,
           }}
         />
