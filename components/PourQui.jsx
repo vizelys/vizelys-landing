@@ -2,8 +2,7 @@
 
 import Reveal from './Reveal'
 import SectionHead from './SectionHead'
-import { Icon } from '@/lib/icons'
-import { VIZ } from '@/lib/data'
+import { DC } from '@/lib/data'
 
 export default function PourQui() {
   return (
@@ -11,17 +10,14 @@ export default function PourQui() {
       <div className="wrap">
         <SectionHead
           eyebrow="Pour qui"
-          title="Des entreprises locales qui vivent de la confiance."
-          sub="Vous êtes visible dans votre quartier, recommandé par vos clients, reconnu pour votre sérieux — mais votre présence en ligne ne le montre pas encore."
+          title="Des processus récurrents, un problème chiffrable."
+          qualif={DC.nichesQualif}
         />
-        <div className="niche-grid" style={{ marginTop: 52 }}>
-          {VIZ.niches.map((niche, i) => (
-            <Reveal className="niche" key={niche.t} delay={i * 60}>
-              <div className="niche-ic">
-                <Icon name={niche.ic} style={{ width: 40, height: 40 }} />
-              </div>
-              <h3>{niche.t}</h3>
-              <p>{niche.d}</p>
+        <div className="niche-grid" style={{ marginTop: 48 }}>
+          {DC.niches.map((n, i) => (
+            <Reveal className="niche" key={n.t} delay={i * 60}>
+              <h3>{n.t}</h3>
+              <p>{n.d}</p>
             </Reveal>
           ))}
         </div>

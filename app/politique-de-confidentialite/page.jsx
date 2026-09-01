@@ -18,7 +18,7 @@ export default function PolitiqueConfidentialite() {
           <ul>
             <li><strong>Vizelys</strong></li>
             <li><strong>Adresse :</strong> [À COMPLÉTER]</li>
-            <li><strong>Contact :</strong> <a href="mailto:vizelys@proton.me">vizelys@proton.me</a></li>
+            <li><strong>Contact :</strong> <a href="mailto:contact@vizelys.fr">contact@vizelys.fr</a></li>
           </ul>
         </section>
 
@@ -28,9 +28,9 @@ export default function PolitiqueConfidentialite() {
           <ul>
             <li>Nom et prénom</li>
             <li>Adresse e-mail</li>
-            <li>Numéro de téléphone (facultatif)</li>
             <li>Secteur d'activité</li>
-            <li>Message libre</li>
+            <li>Taille de l'entreprise</li>
+            <li>Description de la situation (facultatif)</li>
           </ul>
           <p>
             Aucune donnée sensible au sens de l'article 9 du RGPD n'est collectée.
@@ -88,7 +88,7 @@ export default function PolitiqueConfidentialite() {
             <li><strong>Droit d'opposition</strong> — vous opposer au traitement fondé sur l'intérêt légitime</li>
           </ul>
           <p>
-            Pour exercer ces droits, contactez-nous à <a href="mailto:vizelys@proton.me">vizelys@proton.me</a>. Nous répondrons dans un délai d'un mois.
+            Pour exercer ces droits, contactez-nous à <a href="mailto:contact@vizelys.fr">contact@vizelys.fr</a>. Nous répondrons dans un délai d'un mois.
           </p>
           <p>
             En cas de réponse insatisfaisante, vous pouvez introduire une réclamation auprès de la <strong>CNIL</strong> : <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener noreferrer">cnil.fr/fr/plaintes</a>.
@@ -98,7 +98,7 @@ export default function PolitiqueConfidentialite() {
         <section className="legal-section">
           <h2>8. Cookies</h2>
           <p>
-            Le site vizelys.fr n'utilise <strong>aucun cookie de traçage ou publicitaire</strong>. Seul un cookie technique est déposé localement (<code>vizelys-theme</code>) pour mémoriser votre préférence de thème clair/sombre. Ce cookie ne collecte aucune donnée personnelle et ne nécessite pas de consentement au sens de la directive ePrivacy.
+            Le site vizelys.fr n'utilise <strong>aucun cookie de traçage ou publicitaire</strong>. Seuls des éléments techniques sont déposés localement (<code>vz-theme</code>, <code>vz-palette</code>) pour mémoriser votre préférence de thème clair/sombre et de palette visuelle. Ce cookie ne collecte aucune donnée personnelle et ne nécessite pas de consentement au sens de la directive ePrivacy.
           </p>
         </section>
 

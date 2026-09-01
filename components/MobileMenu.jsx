@@ -2,7 +2,7 @@
 
 import BrandMark from './BrandMark'
 import { Icon } from '@/lib/icons'
-import { VIZ } from '@/lib/data'
+import { DC } from '@/lib/data'
 
 export default function MobileMenu({ open, onClose, theme, onToggleTheme }) {
   return (
@@ -16,20 +16,14 @@ export default function MobileMenu({ open, onClose, theme, onToggleTheme }) {
         </button>
       </div>
       <nav>
-        {VIZ.nav.map((n) => (
-          <a key={n.href} href={n.href} onClick={onClose}>
-            {n.label}
-          </a>
+        {DC.nav.map((n) => (
+          <a key={n.href} href={n.href} onClick={onClose}>{n.label}</a>
         ))}
       </nav>
       <a href="#contact" className="btn btn-primary" onClick={onClose}>
-        Prendre rendez-vous
+        {DC.cta}
       </a>
-      <button
-        className="btn btn-ghost"
-        style={{ marginTop: 14 }}
-        onClick={onToggleTheme}
-      >
+      <button className="btn btn-ghost" style={{ marginTop: 12 }} onClick={onToggleTheme}>
         <Icon name={theme === 'dark' ? 'sun' : 'moon'} style={{ width: 18, height: 18 }} />
         {theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
       </button>

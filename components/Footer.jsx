@@ -1,5 +1,5 @@
 import BrandMark from './BrandMark'
-import { VIZ } from '@/lib/data'
+import { DC } from '@/lib/data'
 
 export default function Footer() {
   return (
@@ -10,59 +10,40 @@ export default function Footer() {
             <a href="#top" className="brand">
               <BrandMark /> Vizelys
             </a>
-            <p>
-              Une présence en ligne claire et crédible pour les entreprises locales qui vivent de la
-              confiance.
-            </p>
+            <p>{DC.footer.tagline}</p>
           </div>
           <div className="footer-col">
             <h4>Navigation</h4>
             <ul>
-              {VIZ.nav.map((n) => (
-                <li key={n.href}>
-                  <a href={n.href}>{n.label}</a>
-                </li>
+              {DC.nav.map((n) => (
+                <li key={n.href}><a href={n.href}>{n.label}</a></li>
               ))}
             </ul>
           </div>
           <div className="footer-col">
-            <h4>Services</h4>
+            <h4>Offres</h4>
             <ul>
-              <li>
-                <a href="#services">Refonte de site</a>
-              </li>
-              <li>
-                <a href="#services">Référencement local</a>
-              </li>
-              <li>
-                <a href="#services">Mise en valeur des preuves</a>
-              </li>
-              <li>
-                <a href="#services">Parcours de contact</a>
-              </li>
+              {DC.footer.offers.map((o) => (
+                <li key={o}><a href="#offres">{o}</a></li>
+              ))}
             </ul>
           </div>
           <div className="footer-col">
             <h4>Contact</h4>
             <ul>
-              <li>
-                <a href="#contact">Prendre rendez-vous</a>
-              </li>
-              <li>
-                <a href="mailto:vizelys@proton.me">vizelys@proton.me</a>
-              </li>
-              <li>
-                <a href="#contact">Demander un devis</a>
-              </li>
+              <li><a href={`mailto:${DC.footer.email}`}>{DC.footer.email}</a></li>
+              <li><a href="#contact">{DC.cta}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 Vizelys — Refonte web &amp; référencement local.</span>
+          <span>{DC.footer.copyright}</span>
           <span>
             <a href="/mentions-legales">Mentions légales</a>
             {' · '}
             <a href="/politique-de-confidentialite">Confidentialité</a>
+            {' · '}
+            <a href="/presence-en-ligne">Présence en ligne pour entreprises locales →</a>
           </span>
         </div>
       </div>

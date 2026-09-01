@@ -1,31 +1,27 @@
 'use client'
 
 import Reveal from './Reveal'
-import { MockAfter } from './MockSite'
 import { Icon } from '@/lib/icons'
+import { DC } from '@/lib/data'
 
-function HeroTrust() {
+function FlowDiagram() {
   return (
-    <div className="hero-trust">
-      <span>Refonte web</span>
-      <span className="dot" />
-      <span>Référencement local</span>
-      <span className="dot" />
-      <span>Basés en France</span>
-    </div>
-  )
-}
-
-function HeroCTA() {
-  return (
-    <div className="hero-cta">
-      <a href="#contact" className="btn btn-primary">
-        Prendre rendez-vous
-        <Icon name="arrow" className="arr" style={{ width: 18, height: 18 }} />
-      </a>
-      <a href="#approche" className="btn btn-ghost">
-        Voir notre approche
-      </a>
+    <div className="flow" role="img" aria-label="Des sources dispersées consolidées en un indicateur unique">
+      <div className="flow-in">
+        {DC.hero.flowIn.map((s) => (
+          <span className="fin" key={s}>{s}</span>
+        ))}
+      </div>
+      <svg className="flow-lines" viewBox="0 0 340 46" fill="none" aria-hidden="true">
+        <path d="M40 4 C40 30 150 22 168 42 M130 4 C130 26 160 26 168 42 M210 4 C210 26 178 26 170 42 M300 4 C300 30 190 22 170 42" stroke="currentColor" strokeWidth="1.2"/>
+        <path d="M165 36l4 7 4-7" fill="none" stroke="currentColor" strokeWidth="1.2"/>
+      </svg>
+      <div className="flow-node">{DC.hero.flowNode}</div>
+      <div className="flow-drop" />
+      <div className="flow-out">
+        <i />
+        {DC.hero.flowOut}
+      </div>
     </div>
   )
 }
@@ -33,41 +29,37 @@ function HeroCTA() {
 export default function Hero() {
   return (
     <section className="hero" id="top">
-      <div
-        className="hero-glow"
-        style={{ right: 'auto', left: '50%', transform: 'translateX(-50%)', top: '-40%' }}
-      />
-      <div className="wrap">
-        <div className="hero-center">
-          <Reveal as="span" className="eyebrow center">
-            Refonte web · SEO local
+      <div className="wrap hero-grid">
+        <div>
+          <Reveal as="span" className="hero-badge-line">
+            <i />{DC.hero.badge}
           </Reveal>
           <Reveal as="h1" delay={60}>
-            Mieux compris, mieux perçu,
-            <br />
-            <em>plus facilement contacté.</em>
+            Prenez des décisions que vous pouvez défendre, <em>chiffres à l&apos;appui.</em>
           </Reveal>
-          <Reveal as="p" className="hero-lead" delay={120}>
-            Vizelys donne aux entreprises locales une présence en ligne claire et crédible —
-            pour transformer la confiance en appels, devis et rendez-vous.
-          </Reveal>
+          <Reveal as="p" className="hero-lead" delay={120}>{DC.hero.lead}</Reveal>
           <Reveal delay={180}>
-            <HeroCTA />
+            <div className="hero-cta">
+              <a href="#contact" className="btn btn-primary">
+                {DC.cta}
+                <Icon name="arrow" className="arr" style={{ width: 18, height: 18 }} />
+              </a>
+              <a href="#offres" className="btn btn-ghost">Voir nos offres</a>
+            </div>
           </Reveal>
           <Reveal delay={240}>
-            <HeroTrust />
+            <div className="hero-trust">
+              {DC.hero.trust.map((t, i) => (
+                <>
+                  {i > 0 && <span className="dot" key={`dot-${i}`} />}
+                  <span key={t}>{t}</span>
+                </>
+              ))}
+            </div>
           </Reveal>
         </div>
-        <Reveal className="hero-wide" delay={140}>
-          <div className="browser">
-            <div className="browser-bar">
-              <div className="browser-dots"><i /><i /><i /></div>
-              <div className="browser-url">maisonrenaud-annecy.fr</div>
-            </div>
-            <div className="browser-body">
-              <MockAfter />
-            </div>
-          </div>
+        <Reveal delay={140}>
+          <FlowDiagram />
         </Reveal>
       </div>
     </section>

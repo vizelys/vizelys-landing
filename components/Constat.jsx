@@ -2,7 +2,7 @@
 
 import Reveal from './Reveal'
 import SectionHead from './SectionHead'
-import { VIZ } from '@/lib/data'
+import { DC } from '@/lib/data'
 
 export default function Constat() {
   return (
@@ -10,11 +10,11 @@ export default function Constat() {
       <div className="wrap constat-grid">
         <SectionHead
           eyebrow="Le constat"
-          title="Aujourd'hui, on se renseigne avant de vous contacter."
-          sub="Le bouche-à-oreille passe désormais par internet. Quand votre présence en ligne est floue, le client hésite — et appelle quelqu'un d'autre."
+          title="Trop de chiffres, pas assez de décisions."
+          sub={DC.constat.sub}
         />
         <div className="frictions">
-          {VIZ.frictions.map((f, i) => (
+          {DC.constat.items.map((f, i) => (
             <Reveal className="friction" key={f.t} delay={i * 80}>
               <span className="fnum">0{i + 1}</span>
               <div>

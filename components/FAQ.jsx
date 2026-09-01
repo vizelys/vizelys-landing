@@ -3,41 +3,39 @@
 import { useState } from 'react'
 import Reveal from './Reveal'
 import SectionHead from './SectionHead'
-import { VIZ } from '@/lib/data'
+import { DC } from '@/lib/data'
 
 export default function FAQ() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section className="section" id="faq">
-      <div className="wrap">
-        <div className="faq-grid">
-          <SectionHead
-            eyebrow="FAQ"
-            title="Questions fréquentes."
-            sub="Tout ce que vous voulez savoir avant de vous lancer."
-          />
-          <Reveal className="faq-list" delay={60}>
-            {VIZ.faq.map((item, i) => (
-              <div key={i} className={`faq-item ${open === i ? 'open' : ''}`}>
+    <section className="section section--alt" id="faq">
+      <div className="wrap faq-grid">
+        <SectionHead
+          eyebrow="FAQ"
+          title="Ce qu'on nous demande avant de signer."
+          sub="Une question manquante ? Posez-la, on répond clairement."
+        />
+        <Reveal className="faq-list">
+          {DC.faq.map((f, i) => {
+            const isOpen = open === i
+            return (
+              <div className={`faq-item ${isOpen ? 'open' : ''}`} key={i}>
                 <button
                   className="faq-q"
-                  onClick={() => setOpen(open === i ? -1 : i)}
-                  aria-expanded={open === i}
+                  onClick={() => setOpen(isOpen ? -1 : i)}
+                  aria-expanded={isOpen}
                 >
-                  {item.q}
-                  <span className="faq-ic" aria-hidden="true" />
+                  {f.q}
+                  <span className="faq-ic" />
                 </button>
-                <div
-                  className="faq-a"
-                  style={{ maxHeight: open === i ? '400px' : '0' }}
-                >
-                  <div className="faq-a-inner">{item.a}</div>
+                <div className="faq-a" style={{ maxHeight: isOpen ? 300 : 0 }}>
+                  <div className="faq-a-inner">{f.a}</div>
                 </div>
               </div>
-            ))}
-          </Reveal>
-        </div>
+            )
+          })}
+        </Reveal>
       </div>
     </section>
   )

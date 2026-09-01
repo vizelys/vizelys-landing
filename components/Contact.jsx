@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Reveal from './Reveal'
 import SectionHead from './SectionHead'
 import { Icon } from '@/lib/icons'
-import { VIZ } from '@/lib/data'
+import { DC } from '@/lib/data'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
@@ -21,104 +21,109 @@ export default function Contact() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name:     fd.get('name'),
-          email:    fd.get('email'),
-          tel:      fd.get('tel'),
-          activite: fd.get('activite'),
-          message:  fd.get('message'),
+          name:    fd.get('name'),
+          email:   fd.get('email'),
+          secteur: fd.get('secteur'),
+          taille:  fd.get('taille'),
+          message: fd.get('message'),
         }),
       })
       if (!res.ok) throw new Error()
       setSent(true)
     } catch {
-      setError('Une erreur est survenue. Écrivez-nous à vizelys@proton.me')
+      setError('Une erreur est survenue. Écrivez-nous à contact@vizelys.fr')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <section className="section section--alt" id="contact">
-      <div className="wrap">
-        <div className="contact-grid">
-          <div>
-            <SectionHead
-              eyebrow="Contact"
-              title="Parlons de votre projet."
-              sub="Un premier échange sans engagement pour voir si on peut vous aider."
-            />
-            <div className="contact-steps">
-              {VIZ.contactSteps.map((step, i) => (
-                <Reveal className="cstep" key={i} delay={i * 70}>
-                  <div className="cs-num">0{i + 1}</div>
-                  <div>
-                    <h3>{step.t}</h3>
-                    <p>{step.d}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-          <Reveal delay={80}>
-            <div className="form">
-              {sent ? (
-                <div className="form-success">
-                  <div className="fs-ic">
-                    <Icon name="check" />
-                  </div>
-                  <h3>Message envoyé !</h3>
-                  <p>Nous vous répondrons dans les plus brefs délais.</p>
+    <section className="section" id="contact">
+      <div className="wrap contact-grid">
+        <div>
+          <SectionHead
+            eyebrow="Contact"
+            title="Parlons de votre situation."
+            sub="Un échange direct, sans engagement. On vous dit si un Discover a du sens — et sinon, pourquoi."
+          />
+          <div className="contact-steps">
+            {DC.contactSteps.map((c, i) => (
+              <Reveal className="cstep" key={i} delay={i * 80}>
+                <span className="cs-num">0{i + 1}</span>
+                <div>
+                  <h3>{c.t}</h3>
+                  <p>{c.d}</p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit}>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+        <Reveal delay={100}>
+          <div className="form">
+            {sent ? (
+              <div className="form-success">
+                <div className="fs-ic">
+                  <Icon name="check" />
+                </div>
+                <h3>Bien reçu.</h3>
+                <p>Nous revenons vers vous sous 24 h ouvrées pour un premier échange.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <div className="field-row">
                   <div className="field">
                     <label htmlFor="name">Votre nom</label>
-                    <input id="name" name="name" type="text" placeholder="Prénom Nom" required />
+                    <input id="name" name="name" type="text" placeholder="Prénom et nom" required />
                   </div>
                   <div className="field">
-                    <label htmlFor="activite">Votre activité</label>
-                    <select id="activite" name="activite" required defaultValue="">
-                      <option value="" disabled>Sélectionnez votre secteur</option>
-                      <option>Artisanat / bâtiment</option>
-                      <option>Service local</option>
-                      <option>Commerce spécialisé</option>
-                      <option>Cabinet / indépendant</option>
-                      <option>TPE / PME</option>
-                      <option>Autre</option>
+                    <label htmlFor="email">Email professionnel</label>
+                    <input id="email" name="email" type="email" placeholder="vous@entreprise.fr" required />
+                  </div>
+                </div>
+                <div className="field-row">
+                  <div className="field">
+                    <label htmlFor="secteur">Votre secteur</label>
+                    <select id="secteur" name="secteur" defaultValue="" required>
+                      <option value="" disabled>Choisissez</option>
+                      {DC.niches.map((n) => (
+                        <option key={n.t}>{n.t}</option>
+                      ))}
                     </select>
                   </div>
-                  <div className="field-row">
-                    <div className="field">
-                      <label htmlFor="email">Email</label>
-                      <input id="email" name="email" type="email" placeholder="vous@exemple.fr" required />
-                    </div>
-                    <div className="field">
-                      <label htmlFor="tel">Téléphone</label>
-                      <input id="tel" name="tel" type="tel" placeholder="06 xx xx xx xx" />
-                    </div>
-                  </div>
                   <div className="field">
-                    <label htmlFor="message">Votre projet</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      placeholder="Décrivez votre activité et ce que vous souhaitez améliorer…"
-                      rows={4}
-                    />
+                    <label htmlFor="taille">Taille de l&apos;entreprise</label>
+                    <select id="taille" name="taille" defaultValue="" required>
+                      <option value="" disabled>Choisissez</option>
+                      <option>&lt; 20 collaborateurs</option>
+                      <option>20 – 100 collaborateurs</option>
+                      <option>100 – 500 collaborateurs</option>
+                      <option>&gt; 500 collaborateurs</option>
+                    </select>
                   </div>
-                  {error && <p className="form-note" style={{ color: 'var(--accent-text)', marginBottom: 8 }}>{error}</p>}
-                  <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Envoi en cours…' : 'Envoyer ma demande'}
-                    {!loading && <Icon name="arrow" className="arr" style={{ width: 18, height: 18 }} />}
-                  </button>
-                  <p className="form-note">
-                    Réponse sous 24h · Aucun engagement
+                </div>
+                <div className="field">
+                  <label htmlFor="message">Votre situation</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="La décision qui pose problème, les données concernées, ce que vous avez déjà tenté…"
+                    rows={4}
+                  />
+                </div>
+                {error && (
+                  <p className="form-note" style={{ color: 'var(--accent-ink)', marginBottom: 8 }}>
+                    {error}
                   </p>
-                </form>
-              )}
-            </div>
-          </Reveal>
-        </div>
+                )}
+                <button type="submit" className="btn btn-primary" disabled={loading}>
+                  {loading ? 'Envoi en cours…' : 'Demander un cadrage'}
+                  {!loading && <Icon name="arrow" className="arr" style={{ width: 18, height: 18 }} />}
+                </button>
+                <p className="form-note">Réponse sous 24 h · Premier échange sans engagement</p>
+              </form>
+            )}
+          </div>
+        </Reveal>
       </div>
     </section>
   )

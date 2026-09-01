@@ -1,11 +1,12 @@
 export async function POST(request) {
   const body = await request.json()
-  const { name, email, tel, activite, message } = body
+  const { name, email, secteur, taille, message } = body
 
   const errors = []
   if (!name?.trim()) errors.push('name')
   if (!email?.trim()) errors.push('email')
-  if (!activite?.trim()) errors.push('activite')
+  if (!secteur?.trim()) errors.push('secteur')
+  if (!taille?.trim()) errors.push('taille')
   if (errors.length) {
     return Response.json({ error: 'Champs manquants', fields: errors }, { status: 400 })
   }
@@ -13,10 +14,8 @@ export async function POST(request) {
   const notionToken = process.env.NOTION_TOKEN
   const notionDbId = process.env.NOTION_DATABASE_ID
   const discordWebhook = process.env.DISCORD_WEBHOOK_URL
-
   const now = new Date().toISOString()
 
-  // — Notion ——————————————————————————————————————————————
   if (notionToken && notionDbId) {
     await fetch('https://api.notion.com/v1/pages', {
       method: 'POST',
@@ -28,40 +27,38 @@ export async function POST(request) {
       body: JSON.stringify({
         parent: { database_id: notionDbId },
         properties: {
-          Nom:       { title:        [{ text: { content: name } }] },
-          Email:     { email:        email },
-          Téléphone: { phone_number: tel || null },
-          Secteur:   { select:       { name: activite } },
-          Message:   { rich_text:    [{ text: { content: message || '' } }] },
-          Date:      { date:         { start: now } },
-          Statut:    { select:       { name: 'Nouveau' } },
+          Nom:     { title:     [{ text: { content: name } }] },
+          Email:   { email:     email },
+          Secteur: { select:    { name: secteur } },
+          Taille:  { select:    { name: taille } },
+          Message: { rich_text: [{ text: { content: message || '' } }] },
+          Date:    { date:      { start: now } },
+          Statut:  { select:    { name: 'Nouveau' } },
         },
       }),
-    })
+    }).catch(() => {})
   }
 
-  // — Discord ——————————————————————————————————————————————
   if (discordWebhook) {
     await fetch(discordWebhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: 'Vizelys Leads',
-        avatar_url: 'https://vizelys.fr/favicon.ico',
         embeds: [{
           title: `📥 Nouveau lead — ${name}`,
-          color: 0x5894bb,
+          color: 0x22B883,
           fields: [
             { name: '✉️ Email',    value: email,             inline: true },
-            { name: '📞 Tél',      value: tel || '—',        inline: true },
-            { name: '🏢 Secteur',  value: activite,          inline: true },
-            { name: '💬 Message',  value: message || '—',    inline: false },
+            { name: '🏭 Secteur',  value: secteur,           inline: true },
+            { name: '👥 Taille',   value: taille,            inline: true },
+            { name: '💬 Situation', value: message || '—',   inline: false },
           ],
           timestamp: now,
-          footer: { text: 'vizelys.fr' },
+          footer: { text: 'vizelys.fr — Aide à la décision' },
         }],
       }),
-    })
+    }).catch(() => {})
   }
 
   return Response.json({ ok: true })

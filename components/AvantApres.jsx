@@ -3,72 +3,80 @@
 import { useState } from 'react'
 import Reveal from './Reveal'
 import SectionHead from './SectionHead'
-import { MockAfter, MockBefore } from './MockSite'
 import { Icon } from '@/lib/icons'
-import { VIZ } from '@/lib/data'
+import { DC } from '@/lib/data'
+
+function SheetVisual() {
+  return (
+    <div className="sheet" role="img" aria-label="Valeurs contradictoires issues de plusieurs fichiers">
+      {DC.beforeAfter.cells.map((c, i) => (
+        <div className="cell" key={i}>
+          <b>{c.v}</b>
+          <small>{c.s}</small>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function KpiVisual() {
+  const k = DC.beforeAfter.kpi
+  return (
+    <div className="kpi" role="img" aria-label="Un indicateur unique, daté et sourcé">
+      <span className="kpi-label">{k.label}</span>
+      <span className="kpi-value">{k.value}<i /></span>
+      <span className="kpi-meta">{k.meta}</span>
+    </div>
+  )
+}
 
 export default function AvantApres() {
   const [state, setState] = useState('after')
   const isAfter = state === 'after'
-  const data = VIZ.beforeAfter[state]
+  const items = isAfter ? DC.beforeAfter.after : DC.beforeAfter.before
 
   return (
     <section className="section section--alt" id="avant-apres">
       <div className="wrap">
-        <SectionHead
-          center
-          eyebrow="Avant / Après"
-          title="Ce que change une présence bien pensée."
-        />
-        <Reveal style={{ marginTop: 44, display: 'flex', justifyContent: 'center' }}>
-          <div className="ba-toggle">
-            <span
-              className="ba-thumb"
-              style={{
-                left: isAfter ? 'calc(50% + 0px)' : 5,
-                width: 'calc(50% - 7px)',
-              }}
-            />
-            <button
-              aria-pressed={!isAfter}
-              onClick={() => setState('before')}
-            >
-              Avant
-            </button>
-            <button
-              aria-pressed={isAfter}
-              onClick={() => setState('after')}
-            >
-              Après
-            </button>
-          </div>
-        </Reveal>
-        <Reveal className="ba-panel" delay={60}>
-          <div className="ba-content">
-            <p className="ba-state-label">{data.label}</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, alignItems: 'flex-end', justifyContent: 'space-between' }}>
+          <SectionHead
+            eyebrow="Avant / Après"
+            title="La même donnée, deux réalités."
+            sub="Ce qui change : la fiabilité de ce que vous regardez."
+          />
+          <Reveal delay={120}>
+            <div className="ba-toggle">
+              <span
+                className="ba-thumb"
+                style={{
+                  left: 4,
+                  width: 'calc(50% - 6px)',
+                  transform: isAfter ? 'translateX(calc(100% + 4px))' : 'none',
+                }}
+              />
+              <button aria-pressed={!isAfter} onClick={() => setState('before')}>Avant</button>
+              <button aria-pressed={isAfter} onClick={() => setState('after')}>Après</button>
+            </div>
+          </Reveal>
+        </div>
+        <div className="ba-panel">
+          <Reveal key={state}>
+            <div className="ba-state-label">{isAfter ? 'Avec Vizelys' : 'Situation courante'}</div>
             <div className="ba-list">
-              {data.items.map((item, i) => (
-                <div key={i} className={`ba-item ${isAfter ? 'pos' : 'neg'}`}>
-                  <div className="ba-ic">
+              {items.map((it, i) => (
+                <div className={`ba-item ${isAfter ? 'pos' : 'neg'}`} key={i}>
+                  <span className="ba-ic">
                     <Icon name={isAfter ? 'check' : 'cross'} />
-                  </div>
-                  <p>{item}</p>
+                  </span>
+                  <p>{it}</p>
                 </div>
               ))}
             </div>
-          </div>
-          <div className="ba-visual">
-            <div className="browser">
-              <div className="browser-bar">
-                <div className="browser-dots"><i /><i /><i /></div>
-                <div className="browser-url">{data.url}</div>
-              </div>
-              <div className="browser-body">
-                {isAfter ? <MockAfter /> : <MockBefore />}
-              </div>
-            </div>
-          </div>
-        </Reveal>
+          </Reveal>
+          <Reveal delay={80} key={state + '-v'}>
+            {isAfter ? <KpiVisual /> : <SheetVisual />}
+          </Reveal>
+        </div>
       </div>
     </section>
   )

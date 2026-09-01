@@ -21,7 +21,7 @@ export default function MentionsLegales() {
             <li><strong>SIRET :</strong> [À COMPLÉTER]</li>
             <li><strong>Siège social :</strong> [À COMPLÉTER — adresse complète]</li>
             <li><strong>Directeur de la publication :</strong> [À COMPLÉTER — nom du gérant]</li>
-            <li><strong>Contact :</strong> <a href="mailto:vizelys@proton.me">vizelys@proton.me</a></li>
+            <li><strong>Contact :</strong> <a href="mailto:contact@vizelys.fr">contact@vizelys.fr</a></li>
           </ul>
         </section> */}
 

@@ -2,9 +2,9 @@
 
 import BrandMark from './BrandMark'
 import { Icon } from '@/lib/icons'
-import { VIZ } from '@/lib/data'
+import { DC } from '@/lib/data'
 
-export default function Header({ theme, onToggleTheme, onOpenMenu, scrolled }) {
+export default function Header({ theme, onToggleTheme, onOpenMenu, scrolled, palette, onTogglePalette }) {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="wrap nav">
@@ -12,18 +12,24 @@ export default function Header({ theme, onToggleTheme, onOpenMenu, scrolled }) {
           <BrandMark /> Vizelys
         </a>
         <nav className="nav-links">
-          {VIZ.nav.map((n) => (
-            <a key={n.href} href={n.href}>
-              {n.label}
-            </a>
+          {DC.nav.map((n) => (
+            <a key={n.href} href={n.href}>{n.label}</a>
           ))}
         </nav>
         <div className="nav-actions">
+          <button
+            className="icon-btn"
+            onClick={onTogglePalette}
+            aria-label="Changer de palette"
+            title={palette === 'heritage' ? 'Palette Clarity (vert)' : 'Palette historique (navy/cyan)'}
+          >
+            <Icon name="palette" />
+          </button>
           <button className="icon-btn" onClick={onToggleTheme} aria-label="Changer de thème">
             <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
           </button>
           <a href="#contact" className="btn btn-primary btn-sm">
-            Prendre rendez-vous
+            {DC.cta}
           </a>
           <button className="icon-btn burger" onClick={onOpenMenu} aria-label="Menu">
             <Icon name="menu" />
