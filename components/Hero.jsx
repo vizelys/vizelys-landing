@@ -35,7 +35,7 @@ export default function Hero() {
             <i />{DC.hero.badge}
           </Reveal>
           <Reveal as="h1" delay={60}>
-            Prenez des décisions que vous pouvez défendre, <em>chiffres à l&apos;appui.</em>
+            Vos données existent. Vos décisions méritent mieux qu&apos;un Excel <em>reconsolidé à la main.</em>
           </Reveal>
           <Reveal as="p" className="hero-lead" delay={120}>{DC.hero.lead}</Reveal>
           <Reveal delay={180}>
