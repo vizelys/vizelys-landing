@@ -3,6 +3,7 @@ import SectionHead from './SectionHead'
 import { DC } from '@/lib/data'
 
 export default function Equipe() {
+  const m = DC.teamMethod
   return (
     <section className="section section--alt" id="equipe">
       <div className="wrap">
@@ -12,14 +13,18 @@ export default function Equipe() {
           sub="Fiabiliser vos données et construire l'intelligence par-dessus."
         />
         <div className="team-grid">
-          {DC.team.map((m, i) => (
-            <Reveal className="team-card" key={m.name} delay={i * 80}>
+          {DC.team.map((p, i) => (
+            <Reveal className="team-card" key={p.name} delay={i * 80}>
               <div className="tc-head">
-                <span className="tc-name">{m.name}</span>
-                <span className="tc-role">{m.role}</span>
+                <div className="tc-top">
+                  <span className="tc-name">{p.name}</span>
+                  <span className="tc-label">{p.label}</span>
+                </div>
+                <span className="tc-tagline">{p.tagline}</span>
+                <span className="tc-role">{p.role}</span>
               </div>
               <ul className="tc-list">
-                {m.items.map((item) => (
+                {p.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -27,8 +32,13 @@ export default function Equipe() {
           ))}
         </div>
         <Reveal className="team-method" delay={160}>
-          <span className="tm-label">Méthode</span>
-          {DC.teamMethod}
+          <div className="tm-header">
+            <span className="tm-label">Méthode Vizelys</span>
+            <em className="tm-tagline">{m.tagline}</em>
+          </div>
+          <p className="tm-sub">{m.sub}</p>
+          <p className="tm-steps">{m.steps}</p>
+          <p className="tm-punchline">{m.punchline}</p>
         </Reveal>
       </div>
     </section>

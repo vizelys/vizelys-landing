@@ -279,14 +279,22 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; 
 /* team */
 .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
 .team-card { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--card); padding: clamp(24px, 3vw, 32px); }
-.tc-head { margin-bottom: 20px; }
-.tc-name { display: block; font-size: 19px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
-.tc-role { font-size: 13px; color: var(--accent-ink); font-family: var(--font-mono); }
+.tc-head { margin-bottom: 20px; display: flex; flex-direction: column; gap: 6px; }
+.tc-top { display: flex; align-items: baseline; gap: 12px; }
+.tc-name { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; font-family: var(--font-mono); color: var(--accent-ink); }
+.tc-label { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+.tc-tagline { font-style: italic; color: var(--muted); font-size: 14px; }
+.tc-role { font-size: 12px; color: var(--accent-ink); font-family: var(--font-mono); opacity: 0.8; }
 .tc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-.tc-list li { font-size: 14.5px; color: var(--muted); padding-left: 16px; position: relative; }
+.tc-list li { font-size: 14px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.5; }
 .tc-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 12px; top: 2px; }
-.team-method { margin-top: 20px; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--r-lg); background: var(--card); padding: 20px 24px; font-size: 14.5px; color: var(--muted); display: flex; gap: 16px; align-items: baseline; }
+.team-method { margin-top: 20px; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--r-lg); background: var(--card); padding: clamp(20px, 3vw, 28px) clamp(20px, 3vw, 28px) clamp(20px, 3vw, 28px) clamp(22px, 3vw, 30px); display: flex; flex-direction: column; gap: 10px; }
+.tm-header { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .tm-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); white-space: nowrap; }
+.tm-tagline { font-style: italic; font-size: 15px; color: var(--text); font-weight: 500; }
+.tm-sub { font-size: 14px; color: var(--muted); margin: 0; }
+.tm-steps { font-family: var(--font-mono); font-size: 13px; color: var(--text); margin: 0; }
+.tm-punchline { font-size: 13.5px; color: var(--muted); margin: 0; border-top: 1px solid var(--border); padding-top: 10px; }
 
 /* roadmap mock */
 .roadmap { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--card); padding: clamp(20px, 3vw, 28px); }
