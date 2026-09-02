@@ -16,10 +16,7 @@ export default function Equipe() {
           {DC.team.map((p, i) => (
             <Reveal className="team-card" key={p.name} delay={i * 80}>
               <div className="tc-head">
-                <div className="tc-top">
-                  <span className="tc-name">{p.name}</span>
-                  <span className="tc-label">{p.label}</span>
-                </div>
+                <span className="tc-label">{p.label}</span>
                 <span className="tc-tagline">{p.tagline}</span>
                 <span className="tc-role">{p.role}</span>
               </div>
