@@ -62,14 +62,21 @@ export default function Offres() {
           <RoadmapVisual />
         </Reveal>
 
-        <Reveal className="offer-second" delay={80}>
-          <h3>{o.prove.name}</h3>
-          <span className="os-price">{o.prove.price}</span>
-          <p>{o.prove.sub}</p>
-          <span className="os-verdict">
-            {o.prove.verdict} <b>GO</b> · <b>ADJUST</b> · <b>STOP</b>
-          </span>
-        </Reveal>
+        <div className="offers-row">
+          <Reveal className="offer-second offer-qw" delay={80}>
+            <h3>{o.quickwin.name}</h3>
+            <span className="os-price">{o.quickwin.price}</span>
+            <p>{o.quickwin.sub}</p>
+          </Reveal>
+          <Reveal className="offer-second" delay={120}>
+            <h3>{o.prove.name}</h3>
+            <span className="os-price">{o.prove.price}</span>
+            <p>{o.prove.sub}</p>
+            <span className="os-verdict">
+              {o.prove.verdict} <b>GO</b> · <b>ADJUST</b> · <b>STOP</b>
+            </span>
+          </Reveal>
+        </div>
 
         <Reveal as="p" className="offer-next" delay={140}>
           {o.next}

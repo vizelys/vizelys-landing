@@ -271,6 +271,8 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; 
 .offer-second p { grid-column: 1 / -1; color: var(--muted); font-size: 14.5px; max-width: 60em; }
 .offer-second .os-verdict { grid-column: 1 / -1; font-family: var(--font-mono); font-size: 13px; color: var(--text); }
 .offer-second .os-verdict b { color: var(--accent-ink); font-weight: 600; }
+.offers-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; align-items: start; }
+.offer-qw { border-left: 3px solid var(--accent) !important; }
 .offer-next { color: var(--muted); font-size: 14.5px; margin-top: 22px; max-width: 56em; }
 .offer-next b { color: var(--text); font-weight: 600; }
 
@@ -439,6 +441,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; 
   .btn { width: 100%; }
   .hero-cta .btn, .nav-actions .btn { width: auto; }
   .ba-toggle { width: 100%; } .ba-toggle button { flex: 1; }
+  .offers-row { grid-template-columns: 1fr; }
   .offer-second { grid-template-columns: 1fr; } .offer-second .os-price { text-align: left; }
   .rm-row { grid-template-columns: 56px 1fr; } .rm-roi, .rm-tag { grid-column: 2; justify-self: start; }
 }
