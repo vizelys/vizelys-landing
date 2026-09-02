@@ -276,6 +276,18 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; 
 .offer-next { color: var(--muted); font-size: 14.5px; margin-top: 22px; max-width: 56em; }
 .offer-next b { color: var(--text); font-weight: 600; }
 
+/* team */
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+.team-card { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--card); padding: clamp(24px, 3vw, 32px); }
+.tc-head { margin-bottom: 20px; }
+.tc-name { display: block; font-size: 19px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
+.tc-role { font-size: 13px; color: var(--accent-ink); font-family: var(--font-mono); }
+.tc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.tc-list li { font-size: 14.5px; color: var(--muted); padding-left: 16px; position: relative; }
+.tc-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 12px; top: 2px; }
+.team-method { margin-top: 20px; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--r-lg); background: var(--card); padding: 20px 24px; font-size: 14.5px; color: var(--muted); display: flex; gap: 16px; align-items: baseline; }
+.tm-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); white-space: nowrap; }
+
 /* roadmap mock */
 .roadmap { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--card); padding: clamp(20px, 3vw, 28px); }
 .rm-head { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; font-family: var(--font-mono); }
@@ -442,6 +454,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; 
   .hero-cta .btn, .nav-actions .btn { width: auto; }
   .ba-toggle { width: 100%; } .ba-toggle button { flex: 1; }
   .offers-row { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
   .offer-second { grid-template-columns: 1fr; } .offer-second .os-price { text-align: left; }
   .rm-row { grid-template-columns: 56px 1fr; } .rm-roi, .rm-tag { grid-column: 2; justify-self: start; }
 }
