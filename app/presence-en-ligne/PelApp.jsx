@@ -6,6 +6,7 @@ import BrandMark from '@/components/BrandMark'
 import { MockAfter, MockBefore } from '@/components/MockSite'
 import { Icon } from '@/lib/icons'
 import { VIZ } from '@/lib/data'
+import Turnstile, { resetTurnstile } from '@/components/Turnstile'
 
 function PelHeader({ theme, onToggleTheme, scrolled, menuOpen, onOpenMenu }) {
   return (
@@ -303,11 +304,13 @@ function PelContact() {
           message: fd.get('message'),
           website: fd.get('website'),   // champ piège invisible
           startedAt: startedAt.current,
+          turnstileToken: fd.get('cf-turnstile-response'),
         }),
       })
       if (!res.ok) throw new Error()
       setSent(true)
     } catch {
+      resetTurnstile()
       setError('Une erreur est survenue. Écrivez-nous à contact@vizelys.fr')
     } finally {
       setLoading(false)
@@ -365,6 +368,7 @@ function PelContact() {
                   <textarea id="message" name="message" placeholder="Décrivez votre activité et ce que vous souhaitez améliorer…" rows={4} />
                 </div>
                 {error && <p className="form-note" style={{ color: 'var(--accent-ink)', marginBottom: 8 }}>{error}</p>}
+                <Turnstile />
                 <button type="submit" className="btn btn-primary" disabled={loading}>
                   {loading ? 'Envoi en cours…' : 'Envoyer ma demande'}
                   {!loading && <Icon name="arrow" className="arr" style={{ width: 18, height: 18 }} />}
