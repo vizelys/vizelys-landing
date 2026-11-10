@@ -1,4 +1,5 @@
 import { screenLead, defang } from '@/lib/antispam'
+import { verifyTurnstile } from '@/lib/turnstile'
 
 export async function POST(request) {
   const body = await request.json().catch(() => ({}))
@@ -16,6 +17,8 @@ export async function POST(request) {
   // Robots : réponse « ok » sans rien transmettre.
   const screen = screenLead(body)
   if (screen.spam) return Response.json({ ok: true })
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+  if (!(await verifyTurnstile(body.turnstileToken, ip))) return Response.json({ ok: true })
   const suspect = screen.suspect
   const flag = suspect ? `⚠️ Lead suspect (${screen.reasons.join(', ')}) — ne pas cliquer de lien` : null
 

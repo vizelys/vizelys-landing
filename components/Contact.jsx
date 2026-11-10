@@ -5,6 +5,7 @@ import Reveal from './Reveal'
 import SectionHead from './SectionHead'
 import { Icon } from '@/lib/icons'
 import { DC } from '@/lib/data'
+import Turnstile, { resetTurnstile } from './Turnstile'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
@@ -29,11 +30,13 @@ export default function Contact() {
           message: fd.get('message'),
           website: fd.get('website'),   // champ piège invisible
           startedAt: startedAt.current,
+          turnstileToken: fd.get('cf-turnstile-response'),
         }),
       })
       if (!res.ok) throw new Error()
       setSent(true)
     } catch {
+      resetTurnstile()
       setError('Une erreur est survenue. Écrivez-nous à contact@vizelys.fr')
     } finally {
       setLoading(false)
@@ -122,6 +125,7 @@ export default function Contact() {
                     {error}
                   </p>
                 )}
+                <Turnstile />
                 <button type="submit" className="btn btn-primary" disabled={loading}>
                   {loading ? 'Envoi en cours…' : 'Demander un cadrage'}
                   {!loading && <Icon name="arrow" className="arr" style={{ width: 18, height: 18 }} />}
