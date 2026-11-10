@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Reveal from './Reveal'
 import SectionHead from './SectionHead'
 import { Icon } from '@/lib/icons'
@@ -10,6 +10,7 @@ export default function Contact() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const startedAt = useRef(Date.now()) // anti-spam : un robot envoie en moins de 3 s
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -26,6 +27,8 @@ export default function Contact() {
           secteur: fd.get('secteur'),
           taille:  fd.get('taille'),
           message: fd.get('message'),
+          website: fd.get('website'),   // champ piège invisible
+          startedAt: startedAt.current,
         }),
       })
       if (!res.ok) throw new Error()
@@ -70,6 +73,10 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+                  <label htmlFor="website">Ne pas remplir</label>
+                  <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
                 <div className="field-row">
                   <div className="field">
                     <label htmlFor="name">Votre nom</label>

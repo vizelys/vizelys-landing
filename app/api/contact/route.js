@@ -1,5 +1,7 @@
+import { screenLead, defang } from '@/lib/antispam'
+
 export async function POST(request) {
-  const body = await request.json()
+  const body = await request.json().catch(() => ({}))
   const { name, email, secteur, taille, message } = body
 
   const errors = []
@@ -10,6 +12,12 @@ export async function POST(request) {
   if (errors.length) {
     return Response.json({ error: 'Champs manquants', fields: errors }, { status: 400 })
   }
+
+  // Robots : réponse « ok » sans rien transmettre.
+  const screen = screenLead(body)
+  if (screen.spam) return Response.json({ ok: true })
+  const suspect = screen.suspect
+  const flag = suspect ? `⚠️ Lead suspect (${screen.reasons.join(', ')}) — ne pas cliquer de lien` : null
 
   const notionToken = process.env.NOTION_TOKEN
   const notionDbId = process.env.NOTION_DATABASE_ID
@@ -31,9 +39,9 @@ export async function POST(request) {
           Email:   { email:     email },
           Secteur: { select:    { name: secteur } },
           Taille:  { select:    { name: taille } },
-          Message: { rich_text: [{ text: { content: message || '' } }] },
+          Message: { rich_text: [{ text: { content: suspect ? defang(message) : (message || '') } }] },
           Date:    { date:      { start: now } },
-          Statut:  { select:    { name: 'Nouveau' } },
+          Statut:  { select:    { name: suspect ? 'Suspect' : 'Nouveau' } },
         },
       }),
     }).catch(() => {})
@@ -46,13 +54,15 @@ export async function POST(request) {
       body: JSON.stringify({
         username: 'Vizelys Leads',
         embeds: [{
-          title: `📥 Nouveau lead — ${name}`,
-          color: 0x22B883,
+          title: `${suspect ? '⚠️ Lead suspect' : '📥 Nouveau lead'} — ${defang(name)}`.slice(0, 256),
+          description: flag || undefined,
+          color: suspect ? 0xE0A100 : 0x22B883,
           fields: [
             { name: '✉️ Email',    value: email,             inline: true },
             { name: '🏭 Secteur',  value: secteur,           inline: true },
             { name: '👥 Taille',   value: taille,            inline: true },
-            { name: '💬 Situation', value: message || '—',   inline: false },
+            // Liens rendus non cliquables : un lien dans un premier message est un signal d'hameçonnage.
+            { name: '💬 Situation', value: (defang(message) || '—').slice(0, 1024), inline: false },
           ],
           timestamp: now,
           footer: { text: 'vizelys.fr — Aide à la décision' },

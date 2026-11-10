@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Reveal from '@/components/Reveal'
 import BrandMark from '@/components/BrandMark'
 import { MockAfter, MockBefore } from '@/components/MockSite'
@@ -284,6 +284,7 @@ function PelContact() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const startedAt = useRef(Date.now()) // anti-spam : un robot envoie en moins de 3 s
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -300,6 +301,8 @@ function PelContact() {
           secteur: fd.get('activite'),
           taille:  '< 20 collaborateurs',
           message: fd.get('message'),
+          website: fd.get('website'),   // champ piège invisible
+          startedAt: startedAt.current,
         }),
       })
       if (!res.ok) throw new Error()
@@ -338,6 +341,10 @@ function PelContact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+                  <label htmlFor="website">Ne pas remplir</label>
+                  <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
                 <div className="field">
                   <label htmlFor="name">Votre nom</label>
                   <input id="name" name="name" type="text" placeholder="Prénom Nom" required />
